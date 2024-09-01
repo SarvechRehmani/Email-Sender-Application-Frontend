@@ -5,7 +5,7 @@ This Angular-based Email Sender Application is designed to provide a user-friend
 - Dynamic To Fields: Users can add multiple to whom he want to send mail fields on the fly by clicking a "+1" button.
 - Dynamic CC Fields: Users can add multiple CC fields on the fly by clicking a "+1" button.
 - Responsive Design: The application is built with Angular 17, ensuring a responsive and smooth user experience across devices.
-Standalone Components: Utilizes Angular's latest standalone components feature for modular and maintainable code.
+- Standalone Components: Utilizes Angular's latest standalone components feature for modular and maintainable code.
 - Form Validation: Includes robust form validation to ensure all required fields are filled out correctly before sending.
 - Real-Time Notifications: Integrated with ngx-toastr to provide instant feedback on email sending status.
 
