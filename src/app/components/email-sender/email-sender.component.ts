@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { SendMailService } from '../../service/send-mail.service';
 
 @Component({
   selector: 'app-email-sender',
@@ -12,7 +13,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./email-sender.component.css'],
 })
 export class EmailSenderComponent {
-  constructor(private toast: ToastrService) {}
+  constructor(
+    private toast: ToastrService,
+    private sendMailService: SendMailService
+  ) {}
   email: any = {
     to: [''],
     cc: [''],
@@ -23,7 +27,6 @@ export class EmailSenderComponent {
   // Method to add a new To field
   addToField() {
     this.email.to.push('');
-    this.toast.info('To field added successfully!', '');
   }
 
   // Method to add a new CC field
@@ -33,6 +36,15 @@ export class EmailSenderComponent {
 
   // Method to handle the form submission
   submit() {
+    this.sendMailService.sendMail(this.email).subscribe(
+      (success: any) => {
+        this.toast.success(
+          'Mail has been successfully sand!',
+          'Successfully Send'
+        );
+      },
+      (error: any) => {}
+    );
     console.log(this.email);
   }
 
