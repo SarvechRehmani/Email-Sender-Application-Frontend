@@ -21,5 +21,5 @@ This Angular-based Email Sender Application is designed to provide a user-friend
 - Run `ng serve` to start the development server.
 - Access the application via http://localhost:4200/.
 <br>
-<br>
+
 This project serves as a portfolio piece to demonstrate my skills in Angular development and modern web application design.
