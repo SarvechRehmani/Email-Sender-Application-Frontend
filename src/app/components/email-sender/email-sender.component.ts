@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { SendMailService } from '../../service/send-mail.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -93,9 +92,17 @@ export class EmailSenderComponent {
     this.email.cc.push('');
   }
 
-  // Method to handle the form submission
-  submitButton = 'Send Mail';
   submit() {
+    if (this.userFile) {
+      this.sendMailWithAttachment();
+    } else {
+      this.sendMail();
+    }
+  }
+
+  // Send Email without attachment
+  submitButton = 'Send Mail';
+  sendMail() {
     this.submitButton = 'Sending...';
     this.sendMailService.sendMail(this.email).subscribe(
       (success: any) => {
@@ -104,14 +111,36 @@ export class EmailSenderComponent {
           'Mail has been successfully sand!',
           'Successfully Send'
         );
+        this.clear();
       },
       (error: any) => {
         this.submitButton = 'Send Mail';
         this.toast.error('Error in sending mail!', 'Error');
       }
     );
-    console.log(this.email);
-    this.clear();
+  }
+
+  // Sending Email with attachment
+  sendMailWithAttachment() {
+    this.submitButton = 'Sending...';
+    const formData = new FormData();
+    formData.append('request', JSON.stringify(this.email));
+    formData.append('file', this.userFile);
+
+    this.sendMailService.sendMailWithAttachment(formData).subscribe(
+      (success) => {
+        this.submitButton = 'Send Mail';
+        this.toast.success(
+          'Mail has been successfully sand!',
+          'Successfully Send'
+        );
+        this.clear();
+      },
+      (error) => {
+        this.submitButton = 'Send Mail';
+        this.toast.error('Error in sending mail!', 'Error');
+      }
+    );
   }
 
   // Method to clear the form fields
@@ -122,5 +151,16 @@ export class EmailSenderComponent {
       subject: '',
       htmlContent: '',
     };
+  }
+
+  // Selecting ATTACHMENT
+  selectedFile: any = {
+    name: '',
+  };
+  userFile: any = File;
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    this.userFile = this.selectedFile;
+    console.log(this.selectedFile);
   }
 }

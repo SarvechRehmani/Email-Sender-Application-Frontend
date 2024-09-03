@@ -1,4 +1,4 @@
-<div class="w-full min-h-screen flex justify-center items-center">
+<div class="w-full min-h-screen flex justify-center items-center my-9">
   <div
     class="email-card md:w-1/2 w-full md:m-0 m-3 p-4 rounded-xl shadow-lg bg-white dark:bg-gray-800"
   >
@@ -135,6 +135,16 @@
           [apiKey]="api_key"
           name="htmlContent"
           [(ngModel)]="email.htmlContent"
+        />
+      </div>
+
+      <div class="form-field m-3">
+        <input
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          id="dropzone-file"
+          type="file"
+          (change)="onFileSelected($event)"
+          name="attachment"
         />
       </div>
 

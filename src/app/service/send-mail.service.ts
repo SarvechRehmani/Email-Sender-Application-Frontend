@@ -12,4 +12,8 @@ export class SendMailService {
   public sendMail(mail: MailRequest) {
     return this.http.post(`${API_URL}/send`, mail);
   }
+
+  public sendMailWithAttachment(formData: FormData) {
+    return this.http.post(`${API_URL}/send-with-file`, formData);
+  }
 }
